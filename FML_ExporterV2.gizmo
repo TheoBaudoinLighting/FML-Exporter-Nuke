@@ -1,0 +1,468 @@
+#! C:/Program Files/Nuke13.2v1/nuke-13.2.1.dll -nx
+#write_info Write5 file:"/your_path_here/Primary.%04d.mov" format:"2048 1556 1" chans:":rgba.red:rgba.green:rgba.blue:rgba.alpha:" framerange:"1 100" fps:"0" colorspace:"Output - sRGB" datatype:"unknown" transfer:"unknown" views:"main" colorManagement:"OCIO"
+version 13.2 v1
+Gizmo {
+ inputs 2
+ addUserKnob {20 tab01 l "FML Exporter"}
+ addUserKnob {26 Presentation l "" +STARTLINE T "<p><b> <font size=4 color=#ff3131>FML Exporter TBM"}
+ addUserKnob {6 InputOne l "One Input ?" +STARTLINE}
+ InputOne true
+ addUserKnob {41 file_1 l Sequence T Read4.file}
+ addUserKnob {26 ""}
+ addUserKnob {20 ImageGroup l "Image Selections" n 1}
+ addUserKnob {41 file_2 l "Image 01" T Read1.file}
+ addUserKnob {41 file_3 l "Image 02" T Read2.file}
+ addUserKnob {41 file_4 l "Image 03" T Read3.file}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {41 first_frameS l "First frame" +INVISIBLE T FrameHold1.first_frame}
+ addUserKnob {41 second_frameS l "Second frame" +INVISIBLE T FrameHold2.first_frame}
+ addUserKnob {41 third_frameS l "Third frame" +INVISIBLE T FrameHold3.first_frame}
+ addUserKnob {26 ""}
+ addUserKnob {41 file l "Render path" T Write5.file}
+ addUserKnob {41 raw l "raw data" T Write5.raw}
+ addUserKnob {41 colorspace T Write5.colorspace}
+ addUserKnob {41 Render T Write5.Render}
+ addUserKnob {20 tab02 l Info}
+ addUserKnob {26 textInfo l "" +STARTLINE T "Node made by Theo Baudoin \n\n"}
+ addUserKnob {26 ""}
+ addUserKnob {26 textArtstation l "" +STARTLINE T "<font size=4><b><a href=\"https://www.artstation.com/theobaudoin\"style=\"color: #ff3131\">https://www.artstation.com/theobaudoin</a>"}
+}
+ Read {
+  inputs 0
+  file_type exr
+  file /your_path_here/primary.####.exr
+  format "2016 1134 0 0 2016 1134 1 PR_Full"
+  first 1018
+  last 1160
+  origfirst 1018
+  origlast 1160
+  origset true
+  name Read4
+  xpos 448
+  ypos -150
+ }
+set Nab986c00 [stack 0]
+ FrameHold {
+  firstFrame 1018
+  name FrameHold1
+  xpos 350
+  ypos -22
+ }
+ Retime {
+  input.first 1064
+  input.first_lock true
+  input.last 1064
+  input.last_lock true
+  output.first 1001
+  output.first_lock true
+  output.last 1001
+  output.last_lock true
+  before black
+  after black
+  time ""
+  name Retime1
+  xpos 350
+  ypos 26
+ }
+push $Nab986c00
+ FrameHold {
+  firstFrame 1083
+  name FrameHold2
+  xpos 448
+  ypos -23
+ }
+ Retime {
+  input.first 1083
+  input.first_lock true
+  input.last 1083
+  input.last_lock true
+  output.first 1002
+  output.first_lock true
+  output.last 1002
+  output.last_lock true
+  before black
+  after black
+  time ""
+  name Retime2
+  xpos 448
+  ypos 25
+ }
+push $Nab986c00
+ FrameHold {
+  firstFrame 1160
+  name FrameHold3
+  xpos 538
+  ypos -24
+ }
+ Retime {
+  input.first 1102
+  input.first_lock true
+  input.last 1102
+  input.last_lock true
+  output.first 1003
+  output.first_lock true
+  output.last 1003
+  output.last_lock true
+  before black
+  after black
+  time ""
+  name Retime3
+  xpos 538
+  ypos 25
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  name Constant3
+  xpos 538
+  ypos 118
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge1
+  xpos 538
+  ypos 58
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge2
+  xpos 448
+  ypos 58
+ }
+ Dot {
+  name Dot6
+  xpos 482
+  ypos 97
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge3
+  xpos 350
+  ypos 94
+ }
+ Dot {
+  name Dot2
+  xpos 384
+  ypos 205
+ }
+ Read {
+  inputs 0
+  file_type exr
+  file /your_path_here/primary.####.exr
+  format "2016 1134 0 0 2016 1134 1 PR_Full"
+  origset true
+  name Read1
+  xpos -4
+  ypos -147
+  postage_stamp false
+ }
+ FrameHold {
+  firstFrame {{parent.first_frameS}}
+  name FrameHold12
+  xpos -4
+  ypos -34
+ }
+ Retime {
+  input.first 1064
+  input.first_lock true
+  input.last 1064
+  input.last_lock true
+  output.first 1001
+  output.first_lock true
+  output.last 1001
+  output.last_lock true
+  before black
+  after black
+  time ""
+  name Retime7
+  xpos -4
+  ypos 15
+ }
+ Read {
+  inputs 0
+  file_type exr
+  file /your_path_here/primary.####.exr
+  format "2016 1134 0 0 2016 1134 1 PR_Full"
+  origset true
+  name Read2
+  xpos 94
+  ypos -149
+  postage_stamp false
+ }
+ FrameHold {
+  firstFrame {{parent.second_frameS}}
+  name FrameHold13
+  xpos 94
+  ypos -31
+ }
+ Retime {
+  input.first 1083
+  input.first_lock true
+  input.last 1083
+  input.last_lock true
+  output.first 1002
+  output.first_lock true
+  output.last 1002
+  output.last_lock true
+  before black
+  after black
+  time ""
+  name Retime8
+  xpos 94
+  ypos 14
+ }
+ Read {
+  inputs 0
+  file_type exr
+  file /your_path_here/primary.####.exr
+  format "2016 1134 0 0 2016 1134 1 PR_Full"
+  origset true
+  name Read3
+  xpos 184
+  ypos -149
+  postage_stamp false
+ }
+ FrameHold {
+  firstFrame {{parent.third_frameS}}
+  name FrameHold14
+  xpos 184
+  ypos -33
+ }
+ Retime {
+  input.first 1102
+  input.first_lock true
+  input.last 1102
+  input.last_lock true
+  output.first 1003
+  output.first_lock true
+  output.last 1003
+  output.last_lock true
+  before black
+  after black
+  time ""
+  name Retime9
+  xpos 184
+  ypos 14
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  name Constant1
+  xpos 184
+  ypos 96
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge21
+  xpos 184
+  ypos 48
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge22
+  xpos 94
+  ypos 48
+ }
+ Dot {
+  name Dot7
+  xpos 128
+  ypos 86
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge23
+  xpos -4
+  ypos 83
+ }
+ Dot {
+  name Dot1
+  xpos 30
+  ypos 205
+ }
+ Switch {
+  inputs 2
+  which {{parent.InputOne}}
+  name Switch1
+  xpos 136
+  ypos 201
+ }
+ Dot {
+  name Dot3
+  xpos 170
+  ypos 264
+ }
+ Input {
+  inputs 0
+  name CGSpheresRef_Input
+  xpos 752
+  ypos -182
+ }
+ Input {
+  inputs 0
+  name Plate_Input
+  xpos 860
+  ypos -184
+  number 1
+ }
+ Merge2 {
+  inputs 2
+  name Merge28
+  xpos 821
+  ypos -107
+ }
+set Nab897000 [stack 0]
+ FrameHold {
+  firstFrame {{parent.first_frameS}}
+  name FrameHold15
+  xpos 723
+  ypos -40
+ }
+ Retime {
+  input.first 1064
+  input.first_lock true
+  input.last 1064
+  input.last_lock true
+  output.first 1001
+  output.first_lock true
+  output.last 1001
+  output.last_lock true
+  before black
+  after black
+  time ""
+  name Retime10
+  xpos 723
+  ypos 8
+ }
+push $Nab897000
+ FrameHold {
+  firstFrame {{parent.second_frameS}}
+  name FrameHold16
+  xpos 821
+  ypos -38
+ }
+ Retime {
+  input.first 1083
+  input.first_lock true
+  input.last 1083
+  input.last_lock true
+  output.first 1002
+  output.first_lock true
+  output.last 1002
+  output.last_lock true
+  before black
+  after black
+  time ""
+  name Retime11
+  xpos 821
+  ypos 7
+ }
+push $Nab897000
+ FrameHold {
+  firstFrame {{parent.third_frameS}}
+  name FrameHold17
+  selected true
+  xpos 911
+  ypos -40
+ }
+ Retime {
+  input.first 1102
+  input.first_lock true
+  input.last 1102
+  input.last_lock true
+  output.first 1003
+  output.first_lock true
+  output.last 1003
+  output.last_lock true
+  before black
+  after black
+  time ""
+  name Retime12
+  xpos 911
+  ypos 8
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  name Constant2
+  xpos 1044
+  ypos 25
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge24
+  xpos 911
+  ypos 49
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge25
+  xpos 821
+  ypos 49
+ }
+ Dot {
+  name Dot5
+  xpos 855
+  ypos 81
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge26
+  xpos 723
+  ypos 78
+ }
+ Dot {
+  name Dot4
+  xpos 760
+  ypos 264
+ }
+ Merge2 {
+  inputs 2
+  name Merge27
+  label "\[value bbox]"
+  xpos 409
+  ypos 255
+ }
+ Write {
+  file /your_path_here/Primary.####.mov
+  colorspace "Output - sRGB"
+  file_type mov
+  mov64_format "mov (QuickTime / MOV)"
+  mov64_codec jpeg
+  mov64_fps 1
+  mov_h264_codec_profile "High 4:2:0 8-bit"
+  mov64_pixel_format {{2} "yuvj420p\tYCbCr 4:2:0 8-bit" "yuvj422p\tYCbCr 4:2:2 8-bit" "yuvj444p\tYCbCr 4:4:4 8-bit"}
+  mov64_quality Custom
+  mov64_advanced 1
+  mov64_fast_start true
+  mov64_write_timecode true
+  mov64_gop_size 12
+  mov64_b_frames 0
+  mov64_bitrate 40000000
+  mov64_bitrate_tolerance 40000000
+  mov64_quality_min 1
+  mov64_quality_max 3
+  first 1001
+  last 1003
+  use_limit true
+  checkHashOnRead false
+  version 20
+  name Write5
+  xpos 409
+  ypos 323
+ }
+ Output {
+  name Output1
+  xpos 409
+  ypos 407
+ }
+end_group
